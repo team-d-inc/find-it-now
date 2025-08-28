@@ -35,8 +35,6 @@ export async function GET(request: NextRequest) {
       sort: { column: "requestDate", order: "desc" },
       page,
       limit,
-      role: profile.role as UserRole,
-      organizationId: profile.organizationId,
     });
 
     return NextResponse.json(result);

@@ -1,5 +1,8 @@
+'use server';
+
 import { PrismaClient, Prisma } from "@/generated/prisma";
 import { GetPickupRequestsParams, PickupRequestWithRelations } from "@/types/pickupRequest";
+import { authorizeUser } from "@/services/profileService";
 
 const prisma = new PrismaClient();
 
@@ -8,14 +11,16 @@ export async function getPickupRequests({
   sort = { column: "requestDate", order: "desc" },
   page = 1,
   limit = 10,
-  role,
-  organizationId,
-}: GetPickupRequestsParams): Promise<{
+}: GetPickupRequestsParams = {}): Promise<{
   data: PickupRequestWithRelations[];
   total: number;
   page: number;
   totalPages: number;
 }> {
+  // Get user profile and authorize
+  const profile = await authorizeUser('all');
+  const { role, organizationId } = profile;
+
   const skip = (page - 1) * limit;
 
   // Build where clause based on role and filters
