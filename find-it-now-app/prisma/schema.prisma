@@ -1,0 +1,217 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Profile {
+  id             String        @id @default(uuid())
+  supaUserId     String?       @unique
+  organizationId String
+  firstName      String
+  lastName       String
+  email          String        @unique
+  role           Role
+  status         ProfileStatus @default(ACTIVE)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  lostItems      LostItem[]
+  organization   Organization  @relation(fields: [organizationId], references: [id])
+
+  @@index([organizationId])
+  @@map("profiles")
+}
+
+model Organization {
+  id                            String           @id @default(uuid())
+  name                          String
+  email                         String           @unique
+  phone                         String
+  address                       String
+  city                          String
+  state                         String
+  zipCode                       String
+  country                       String
+  operatingHours                String?
+  defaultRetentionPeriod        Int?
+  verificationMethod            String?
+  verificationMethodDescription String?
+  isActive                      Boolean          @default(false)
+  approvalStatus                ApprovalStatus   @default(PENDING)
+  rejectionReason               String?
+  approvedAt                    DateTime?
+  approvedBy                    String?
+  createdAt                     DateTime         @default(now())
+  updatedAt                     DateTime         @updatedAt
+  logoUrl                       String?
+  lostItemReports               LostItemReport[]
+  lostItems                     LostItem[]
+  profiles                      Profile[]
+
+  @@map("organizations")
+}
+
+model LostItem {
+  id                   String          @id @default(uuid())
+  organizationId       String
+  profileId            String
+  title                String
+  categoryId           String
+  description          String?
+  colors               String[]
+  brand                String?
+  contents             String[]
+  imageUrls            String[]
+  dateFound            DateTime
+  specificLocation     String
+  status               ItemStatus      @default(STORED)
+  createdAt            DateTime        @default(now())
+  updatedAt            DateTime        @updatedAt
+  size                 Size
+  material             Material
+  condition            Condition
+  identifiableFeatures String[]
+  thumbnailUrl         String
+  disposalDate         DateTime        @default(now()) @db.Timestamp(6)
+  category             Category        @relation(fields: [categoryId], references: [id])
+  organization         Organization    @relation(fields: [organizationId], references: [id])
+  profile              Profile         @relation(fields: [profileId], references: [id])
+  pickupRequests       PickupRequest[]
+
+  @@index([organizationId])
+  @@index([profileId])
+  @@index([categoryId])
+  @@map("lost_items")
+}
+
+model Category {
+  id              String           @id @default(uuid())
+  name            String
+  lostItemReports LostItemReport[]
+  lostItems       LostItem[]
+
+  @@map("categories")
+}
+
+model LostItemReport {
+  id                   String          @id @default(uuid())
+  organizationId       String
+  firstName            String
+  lastName             String
+  email                String
+  phone                String
+  title                String
+  categoryId           String
+  dateLost             DateTime
+  specificLocation     String
+  colors               String[]
+  brand                String?
+  size                 Size
+  material             Material
+  condition            Condition
+  identifiableFeatures String[]
+  contents             String[]
+  description          String?
+  status               ReportStatus    @default(REPORTED)
+  createdAt            DateTime        @default(now())
+  updatedAt            DateTime        @updatedAt
+  category             Category        @relation(fields: [categoryId], references: [id])
+  organization         Organization    @relation(fields: [organizationId], references: [id])
+  pickupRequests       PickupRequest[]
+
+  @@index([organizationId])
+  @@index([categoryId])
+  @@map("lost_item_reports")
+}
+
+model PickupRequest {
+  id               String              @id @default(uuid())
+  lostItemReportId String
+  lostItemId       String?
+  requestDate      DateTime            @default(now())
+  status           PickupRequestStatus @default(PENDING)
+  rejectionReason  String?
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  lostItem         LostItem?           @relation(fields: [lostItemId], references: [id])
+  lostItemReport   LostItemReport      @relation(fields: [lostItemReportId], references: [id])
+
+  @@index([status])
+  @@index([lostItemReportId])
+  @@index([lostItemId])
+  @@map("pickup_requests")
+}
+
+enum Role {
+  SERVICE_ADMIN
+  ADMIN
+  STAFF
+}
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  REVERTED
+}
+
+enum Condition {
+  NEW
+  GOOD
+  FAIR
+  DAMAGED
+}
+
+enum Size {
+  XS
+  S
+  M
+  L
+  XL
+  XXL
+  FREE
+}
+
+enum Material {
+  FABRIC
+  PLASTIC
+  METAL
+  LEATHER
+  PAPER
+  WOOD
+  COMPOSITE
+  GLASS
+  CERAMIC
+  OTHER
+}
+
+enum ItemStatus {
+  STORED
+  CLAIMED
+  RETURNED
+  DISPOSED
+}
+
+enum PickupRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum ProfileStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  DEACTIVATED
+  DELETED
+}
+
+enum ReportStatus {
+  REPORTED
+  REQUESTED
+}
