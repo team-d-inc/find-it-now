@@ -4,6 +4,9 @@ import { PickupRequestDataTable } from './components/pickup-request-data-table';
 import { authorizeUser } from '@/services/profileService';
 import { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic'; // disables static pre-render
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: 'Pickup Request',
 };

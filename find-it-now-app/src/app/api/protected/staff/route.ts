@@ -1,12 +1,10 @@
-import { NextApiRequest } from 'next';
 import { PrismaClient, ProfileStatus, Role } from '@/generated/prisma/client';
 import { NextResponse } from 'next/server';
 import { authorizeUser } from '@/services/profileService';
 
 const prismaClient = new PrismaClient();
 
-export async function GET(req: NextApiRequest) {
-  if (req.method === 'GET') {
+export async function GET() {
     try {
       const currentProfile = await authorizeUser(Role.ADMIN);
       const data = await prismaClient.profile.findMany({
@@ -39,9 +37,4 @@ export async function GET(req: NextApiRequest) {
         status: 500,
       });
     }
-  } else {
-    return new NextResponse('Method Not Allowed', {
-      status: 405,
-    });
-  }
 }

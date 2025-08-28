@@ -11,13 +11,14 @@ export const metadata: Metadata = {
 };
 
 interface RegisterPageProps {
-  searchParams: {
+  searchParams: Promise<{
     token?: string;
-  };
+  }>;
 }
 
 export default async function RegisterPage({ searchParams }: RegisterPageProps) {
-  const token = searchParams.token;
+  const resolvedSearchParams = await searchParams;
+  const token = resolvedSearchParams.token;
   const validationResult = validateRegistrationToken(token);
 
   // Handle invalid token cases
