@@ -43,6 +43,4 @@ export interface GetPickupRequestsParams {
   sort?: PickupRequestSortOptions;
   page?: number;
   limit?: number;
-  role: UserRole;
-  organizationId?: string;
 }
