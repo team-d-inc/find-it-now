@@ -61,7 +61,7 @@ export const IntroSection = () => {
           </div>
         </div>
       </div>
-      <div className="hidden w-full justify-center md:flex md:flex-1">
+      <div className="w-full justify-center md:flex md:flex-1">
         <Image src="/features/mockup_image.svg" alt="Mockup" width={1000} height={1000} className="max-w-full" />
       </div>
     </div>

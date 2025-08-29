@@ -7,7 +7,6 @@ import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { FormFieldBase } from '@/components/common/form-common/form-field-base';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { Loader2, PartyPopper, Send } from 'lucide-react';
 import { sendOrganizationRegistrationLink } from '@/app/(home)/actions';
@@ -48,73 +47,72 @@ export const OrganizationEmailForm = () => {
 
   if (isSubmitted) {
     return (
-      <div className="flex w-10/12 items-end justify-center gap-4 text-white">
-        <div className="w-2/3">
-          <h3 className="mb-4 flex items-center gap-2 text-4xl font-semibold">
+      <div className="flex w-full max-w-4xl flex-col items-center justify-center gap-6 text-white sm:flex-row sm:items-end sm:gap-4">
+        <div className="w-full text-center sm:w-2/3 sm:text-left">
+          <h3 className="mb-4 flex flex-row items-center justify-center gap-2 text-xl font-semibold sm:text-2xl md:text-4xl sm:justify-start">
             Email Sent!
-            <PartyPopper className="size-10" />
+            <PartyPopper className="size-6 sm:size-8 md:size-10" />
           </h3>
-          <p className="mb-2">
+          <p className="mb-2 text-sm sm:text-base">
             We&apos;ve sent a registration link to your email. Check your inbox to continue.
           </p>
-          <p className="text-md">Didn’t see it? Check your spam folder.</p>
+          <p className="text-xs sm:text-sm">Didn&apos;t see it? Check your spam folder.</p>
         </div>
         <Button
           onClick={() => setIsSubmitted(false)}
           variant="outline"
           size={'lg'}
-          className="mb-4 rounded-4xl bg-transparent"
+          className="mb-4 rounded-4xl bg-transparent text-xs sm:text-sm md:text-base"
         >
           Send Another Link
-          <Send className="size-4" />
+          <Send className="size-3 sm:size-4" />
         </Button>
       </div>
     );
   }
 
   return (
-    <Card className="flex w-full flex-row items-center justify-center gap-4 rounded-none border-none bg-transparent shadow-none">
-      <CardHeader className="w-1/2 pr-0 text-right">
-        <CardTitle className="text-2xl font-semibold text-white">
+    <div className="flex flex-col items-center justify-center gap-6 text-white md:flex-row sm:gap-8">
+      <div className="flex flex-col flex-1 items-center justify-center gap-2 text-center sm:items-start sm:text-left">
+        <h2 className="text-lg font-semibold text-white sm:text-xl md:text-2xl">
           Join us in making lost & found effortless
-        </CardTitle>
-        <p className="text-white">Enter your email to receive a registration link</p>
-      </CardHeader>
-      <CardContent className="w-1/2 pl-0">
-        <div className="relative inline-block rounded-4xl bg-white p-1">
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="flex items-end">
-              <FormFieldBase
-                control={form.control}
-                name="email"
-                label="Organization Email"
-                showLabel={false}
-                type="email"
-                placeholder="Enter your organization's email"
-                inputClassName="p-6 text-xl w-[350px] rounded-tr-none rounded-br-none bg-transparent rounded-4xl pr-16"
-              />
-              <Button
-                type="submit"
-                disabled={isPending}
-                className="bg-primary absolute top-1 right-1 rounded-full p-6 hover:bg-[#2E765E]/90"
-                size={'lg'}
-              >
-                {isPending ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Sending...
-                  </>
-                ) : (
-                  <>
-                    <Send className="size-4" />
-                    {/* Get signup link */}
-                  </>
-                )}
-              </Button>
-            </form>
-          </Form>
-        </div>
-      </CardContent>
-    </Card>
+        </h2>
+        <p className="text-sm text-white sm:text-base">
+          Enter an organization email to receive a registration link
+        </p>
+      </div>
+      <div>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-2">
+            <FormFieldBase
+              control={form.control}
+              name="email"
+              label="Organization Email"
+              showLabel={false}
+              type="email"
+              placeholder="Organization email"
+              inputClassName="text-sm rounded-full p-6 w-60 sm:w-70 text-black"
+            />
+            <Button
+              type="submit"
+              disabled={isPending}
+              className="bg-primary rounded-full hover:bg-[#2E765E]/90 p-6"
+              size={'icon'}
+            >
+              {isPending ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <span className="hidden sm:inline">Sending...</span>
+                </>
+              ) : (
+                <>
+                  <Send className="size-3 sm:size-4" />
+                </>
+              )}
+            </Button>
+          </form>
+        </Form>
+      </div>
+    </div>
   );
 };
