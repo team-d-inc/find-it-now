@@ -21,7 +21,7 @@ import { ImageAnalyzeResponse } from '@/types/imageAnalyze';
 import { LocationDateFormFillSkeleton } from './image-form-fill-skeleton/location-date-form-fill-skeleton';
 import { CharacteristicsFormFillSkeleton } from './image-form-fill-skeleton/characteristics-form-fill-skeleton';
 import { TitleFormFillSkeleton } from './image-form-fill-skeleton/title-form-fill-skeleton';
-import { useBack } from '@/hooks/useBack';
+import { useRouter } from 'next/navigation';
 import { PATHS } from '@/constants/paths';
 import { Loader2 } from 'lucide-react';
 
@@ -53,7 +53,7 @@ export const LostItemForm = ({ categories, initialData }: Props) => {
   );
   const isEdit = !!initialData;
 
-  const goBack = useBack(PATHS.lostItems());
+  const router = useRouter();
 
   useEffect(() => {
     if (initialData?.imageUrls) {
@@ -150,7 +150,7 @@ export const LostItemForm = ({ categories, initialData }: Props) => {
           setUploadedImages([]);
           setExistingImageUrls(allImageUrls);
           toast.success('Updated successfully');
-          goBack();
+          router.push(PATHS.lostItems());
         } else {
           toast.error('Sorry, something went wrong. Please try again.');
         }
@@ -162,7 +162,7 @@ export const LostItemForm = ({ categories, initialData }: Props) => {
           setUploadedImages([]);
           setExistingImageUrls([]);
           toast.success('Created successfully');
-          goBack();
+          router.push(PATHS.lostItems());
         } else {
           toast.error('Sorry, something went wrong. Please try again.');
         }
@@ -357,7 +357,11 @@ export const LostItemForm = ({ categories, initialData }: Props) => {
         </Card>
         {/* Form buttons */}
         <div className="mt-10 flex justify-end gap-4 px-7">
-          <Button variant="systemGhost" onClick={goBack} className="w-32 cursor-pointer">
+          <Button
+            variant="systemGhost"
+            onClick={() => router.push(PATHS.lostItems())} 
+            className="w-32 cursor-pointer"
+          >
             Cancel
           </Button>
           <Button
