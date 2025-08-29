@@ -147,9 +147,10 @@ export const LostItemForm = ({ categories, initialData }: Props) => {
         // Update lost item
         const result = await updateLostItem(initialData.id, data, allImageUrls);
         if (result.success) {
-          toast.success('Updated successfully');
           setUploadedImages([]);
           setExistingImageUrls(allImageUrls);
+          toast.success('Updated successfully');
+          goBack();
         } else {
           toast.error('Sorry, something went wrong. Please try again.');
         }
@@ -161,6 +162,7 @@ export const LostItemForm = ({ categories, initialData }: Props) => {
           setUploadedImages([]);
           setExistingImageUrls([]);
           toast.success('Created successfully');
+          goBack();
         } else {
           toast.error('Sorry, something went wrong. Please try again.');
         }
