@@ -153,7 +153,7 @@ export const Header = () => {
                 <Separator orientation="vertical" className="!h-3 w-1" />
               </>
             )}
-            <Button variant="secondary" className="rounded-full" asChild>
+            <Button variant="secondary" className="hidden rounded-full md:block" asChild>
               <a href="mailto:support@finditnow.com" className="mr-0">
                 <span>Contact Us</span>
               </a>
@@ -165,8 +165,9 @@ export const Header = () => {
                 e.preventDefault();
                 setIsMobileMenuOpen(!isMobileMenuOpen);
               }}
+              size={'icon'}
               className={cn(
-                'rounded-full p-2 transition-all duration-300 hover:scale-110 md:hidden',
+                'rounded-full transition-all duration-300 hover:scale-110 md:hidden',
                 isScrolled
                   ? 'hover:bg-primary/20 text-white hover:text-gray-600'
                   : 'hover:bg-primary/20 text-white hover:text-gray-600',

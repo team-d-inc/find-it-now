@@ -12,7 +12,7 @@ export const HeroSection = () => {
   // useScrollToSection();
   return (
     <div
-      className="relative flex min-h-screen flex-col items-center justify-center space-y-12 text-center"
+      className="relative flex min-h-[400px] md:min-h-screen flex-col items-center justify-center space-y-12 text-center"
       id="Home"
     >
       <DotPattern
@@ -23,7 +23,7 @@ export const HeroSection = () => {
           'absolute inset-0 -z-10',
         )}
       />
-      <div className="pointer-events-none absolute inset-0">
+      <div className="pointer-events-none absolute inset-0 hidden md:block">
         <div
           className="absolute top-32 left-[10%] animate-bounce md:top-28 md:left-1/3"
           style={{ animationDelay: '0s', animationDuration: '2s' }}
@@ -115,12 +115,12 @@ export const HeroSection = () => {
         </div>
       </div>
       <div className="space-y-6 px-4 pt-20 md:space-y-8 md:px-0">
-        <h1 className="text-3xl leading-tight font-bold md:text-4xl lg:text-6xl">
+        <h1 className="text-2xl leading-tight font-bold md:text-4xl lg:text-6xl">
           <TextAnimate animation="fadeIn" by="line">
             Lost Something? Find It Fast.
           </TextAnimate>
         </h1>
-        <p className="mx-auto max-w-2xl text-base font-semibold md:text-lg lg:text-xl">
+        <p className="mx-auto max-w-2xl text-sm font-semibold md:text-lg lg:text-xl">
           Simple, safe, and stress-free — your belongings back where they belong.
         </p>
       </div>
