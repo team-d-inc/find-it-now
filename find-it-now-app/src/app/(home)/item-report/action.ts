@@ -30,7 +30,7 @@ export async function createLostItemReport(data: LostItemReportInput) {
         brand: data.brand || null,
         size: data.size as Size,
         material: data.material as Material,
-        condition: (data.condition as Condition) || Condition.GOOD,
+        condition: (data.condition as Condition) ?? Condition.GOOD,
         identifiableFeatures: identifiableFeatures,
         contents: contents,
         description: data.description || '',
