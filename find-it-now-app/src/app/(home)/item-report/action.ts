@@ -36,7 +36,7 @@ export async function createLostItemReport(data: LostItemReportInput) {
         description: data.description || '',
       },
     });
-
+    // Test
     await saveLostItemReportEmbedding(report);
 
     const [organization] = await Promise.all([
