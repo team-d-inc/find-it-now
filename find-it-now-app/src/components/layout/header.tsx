@@ -91,7 +91,8 @@ export const Header = () => {
           ? 'mx-4 mt-6 rounded border bg-white/75 backdrop-blur-lg md:mx-16'
           : 'mx-0 mt-0 rounded-none',
         isScrolled ? 'bg-transparent' : 'bg-transparent md:bg-transparent',
-        isMobileMenuOpen && 'bg-white/75 backdrop-blur-lg md:bg-transparent',
+        isMobileMenuOpen && !isServiceHome && 'bg-white/75 backdrop-blur-lg md:bg-transparent',
+        isMobileMenuOpen && isServiceHome && 'bg-black/50 backdrop-blur-lg md:bg-transparent',
         isServiceHome && isScrolled && 'bg-black/50',
       )}
     >
@@ -188,11 +189,7 @@ export const Header = () => {
             className={cn(
               'mt-4 border-t pt-4 transition-all duration-300 md:hidden',
               isScrolled ? 'border-gray-200' : 'border-white/20',
-              !isServiceHome
-                ? ''
-                : isScrolled
-                  ? 'text-white'
-                  : 'rounded-md bg-black/75 p-4 text-white',
+              isServiceHome ? 'text-white' : ''
             )}
           >
             <div className="flex flex-col space-y-3">
