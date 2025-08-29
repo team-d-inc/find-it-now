@@ -31,7 +31,7 @@ export async function createLostItem(data: LostItemInput, imageUrls: string[]) {
         brand: data.brand || null,
         size: data.size as Size,
         material: data.material as Material,
-        condition: data.condition as Condition,
+        condition: (data.condition as Condition) ?? Condition.GOOD,
         identifiableFeatures: identifiableFeatures,
         contents: contents,
         description: data.description || null,

@@ -75,7 +75,7 @@ export const LostItemForm = ({ categories, initialData }: Props) => {
       material: initialData?.material as Material,
       identifiableFeatures: initialData?.identifiableFeatures.join(', ') || '',
       contents: initialData?.contents.join(', ') || '',
-      condition: initialData?.condition as Condition,
+      condition: (initialData?.condition as Condition) ?? Condition.GOOD,
       description: initialData?.description || '',
       status: initialData?.status as ItemStatus,
     },
@@ -106,7 +106,7 @@ export const LostItemForm = ({ categories, initialData }: Props) => {
         form.setValue('brand', cleanNullStringValues(response.data.brand));
         form.setValue('size', (response.data?.size as Size) ?? 'FREE');
         form.setValue('material', (response.data?.material as Material) ?? 'OTHER');
-        form.setValue('condition', (response.data?.condition as Condition) ?? 'USED');
+        form.setValue('condition', (response.data?.condition as Condition) ?? 'GOOD');
         form.setValue(
           'identifiableFeatures',
           cleanNullStringValues(response.data.identifiable_features),
