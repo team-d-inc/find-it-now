@@ -19,7 +19,9 @@ export const Header = () => {
 
   const handleMenuScroll = (id: string) => {
     const element = document.getElementById(id);
-    if (element) {
+    if (id === 'Register') {
+      document.getElementById('Home')?.scrollIntoView({ behavior: 'smooth' });
+    } else if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
@@ -182,8 +184,13 @@ export const Header = () => {
         {isMobileMenuOpen && (
           <nav
             className={cn(
-              'mt-4 border-t bg-white/90 pt-4 transition-all duration-300 md:hidden',
+              'mt-4 border-t pt-4 transition-all duration-300 md:hidden',
               isScrolled ? 'border-gray-200' : 'border-white/20',
+              !isServiceHome
+                ? ''
+                : isScrolled
+                  ? 'text-white'
+                  : 'rounded-md bg-black/75 p-4 text-white',
             )}
           >
             <div className="flex flex-col space-y-3">
@@ -199,11 +206,11 @@ export const Header = () => {
                   }}
                   className={cn(
                     'transform rounded-lg px-2 py-2 transition-all duration-300 hover:scale-103',
+                    isServiceHome ? 'text-white' : '',
                     activeItem === item.label
                       ? 'text-primary bg-primary/10 scale-103 font-semibold'
-                      : isScrolled
-                        ? 'text-gray-700'
-                        : '',
+                      : '',
+                    isServiceHome && activeItem === item.label ? 'bg-white/30' : '',
                   )}
                 >
                   {item.label}
