@@ -184,13 +184,17 @@ export const Header = () => {
         {isMobileMenuOpen && (
           <nav
             className={cn(
-              'mt-4 border-t pt-4 transition-all duration-300 md:hidden',
-              isScrolled ? 'border-gray-200' : 'border-white/20',
+              'mt-4 pt-4 transition-all duration-300 md:hidden',
+              isServiceHome
+                ? ''
+                : isScrolled
+                  ? 'border-t border-gray-200 bg-transparent'
+                  : 'rounded-md border border-black/15 bg-white/90 p-4',
               !isServiceHome
                 ? ''
                 : isScrolled
-                  ? 'text-white'
-                  : 'rounded-md bg-black/75 p-4 text-white',
+                  ? 'border-t text-white'
+                  : 'rounded-md border border-black/20 bg-black/75 p-4 text-white',
             )}
           >
             <div className="flex flex-col space-y-3">
