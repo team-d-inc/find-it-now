@@ -89,7 +89,9 @@ export const Header = () => {
         isServiceHome ? 'bg-black/20' : 'bg-white/20',
         isScrolled
           ? 'mx-4 mt-6 rounded border bg-white/75 backdrop-blur-lg md:mx-16'
-          : 'mx-0 mt-0 rounded-none bg-transparent',
+          : 'mx-0 mt-0 rounded-none',
+        isScrolled ? 'bg-transparent' : 'bg-transparent md:bg-transparent',
+        isMobileMenuOpen && 'bg-white/75 backdrop-blur-lg md:bg-transparent',
         isServiceHome && isScrolled && 'bg-black/50',
       )}
     >
