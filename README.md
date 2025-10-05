@@ -2,6 +2,7 @@
 
 <img src="screenshots/logo.png" alt="FindItNow Logo" />
 
+
 [![Website](https://img.shields.io/badge/visit-live_demo-blue?logo=vercel)](https://finditnow-app.vercel.app/)
 
 An AI-powered lost-and-found platform that connects seekers with organizations, reduces stress, and saves time.
@@ -29,6 +30,8 @@ An AI-powered lost-and-found platform that connects seekers with organizations, 
 3️⃣ **Connect & Return** – Securely connect the right people and return items.
 
 **Lost-and-found, simplified for everyone.**
+
+<img src="screenshots/mock.png" alt="Mock" /> 
 
 ---
 
