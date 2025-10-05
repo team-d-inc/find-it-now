@@ -1,6 +1,6 @@
 # FindItNow
 
-<img src="screenshots/logo.png" alt="FindItNow Logo" width="200px" />
+<img src="screenshots/logo.png" alt="FindItNow Logo" />
 
 [![Website](https://img.shields.io/badge/visit-live_demo-blue?logo=vercel)](https://finditnow-app.vercel.app/)
 
